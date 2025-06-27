@@ -34,3 +34,9 @@ resource "azurerm_resource_group" "rgindia"{
     location = "central india"
 
 }
+
+
+resource "azurerm_dns_zone" "public" {
+  name                = "my.com"
+  resource_group_name = azurerm_resource_group.rgindia.name
+}
