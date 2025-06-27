@@ -22,6 +22,26 @@ provider "azurerm" {
   # Configuration options
 
   features {}
-  subscription_id = "31a9bebe-109c-426e-9c37-09af652b7cba" 
+  # subscription_id = "31a9bebe-109c-426e-9c37-09af652b7cba" 
+  subscription_id = "6b6841bf-0578-47fa-9c22-85d13fdbef13"
 
 }
+
+
+resource "azurerm_resource_group" "pandey_rg2" {
+  name     = "pandey-rg2611"
+  location = "West Europe"
+}
+
+resource "azurerm_storage_account" "pandey_storage2" {
+  name                     = "pandeystorage2"
+  resource_group_name      = azurerm_resource_group.pandey_rg2.name
+  location                 = azurerm_resource_group.pandey_rg2.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  depends_on = [ azurerm_resource_group.pandey_rg2 ]
+
+}
+    
+
+
