@@ -1,4 +1,5 @@
 
+
 # this is a terraform script to create a resource group in Azure
 
 terraform {
