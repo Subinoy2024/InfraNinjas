@@ -17,7 +17,7 @@ Owner:
 1. Basic Web Site Deployment -Azure Cloud
 -----------------------------------------------------------------------------------------------------------------------
 
-Provision an Azure App Service to host a basic web site and connect it to an Azure Database for MsSQL.
+Provision an Azure IAAS & PASS to host a basic web site (Monolathic app & wensite) and connect it to an Azure Database for MsSQL.
 
 Use Terraform to automate resource creation and configuration, making deployment repeatable and consistent.
 
@@ -69,5 +69,15 @@ Owner:
 Deploy a jumpbox (bastion host) VM, restrict management access to internal VMs via the jumpbox, 
 and secure all traffic with NSGs.
 ##########################################################################################################################
-
+Status:
+Owner:
 #######################################################################################################################
+-----------------------------------------------------------------------------------------------------------------------
+6. VM Scale Set with Load Balancer
+-------------------------------------------------------------------------------------------------------------------------
+Use Azure Virtual Machine Scale Sets to deploy multiple identical VMs (e.g., for web applications).
+Attach an Azure Load Balancer in front of the scale set for high availability and automatic scaling[3].
+##########################################################################################################################
+
+
+############################################################################################################################
