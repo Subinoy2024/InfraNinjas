@@ -27,12 +27,13 @@ provider "azurerm" {
 
 }
 
-
+# Create a resource group in Azure hardcoded to "West Europe"
 resource "azurerm_resource_group" "pandey_rg2" {
   name     = "pandey-rg2611"
   location = "West Europe"
 }
 
+#Create a storage account in the resource group
 resource "azurerm_storage_account" "pandey_storage2" {
   name                     = "pandeystorage2"
   resource_group_name      = azurerm_resource_group.pandey_rg2.name
@@ -42,6 +43,58 @@ resource "azurerm_storage_account" "pandey_storage2" {
   depends_on = [ azurerm_resource_group.pandey_rg2 ]
 
 }
+
+
+# Create a storage container in the storage account
+resource "azurerm_storage_container" "pandey_container2" {
+  name                  = "pandeycontainer2"
+  storage_account_id    = azurerm_storage_account.pandey_storage2.id
+  container_access_type = "private"
+  depends_on = [ azurerm_storage_account.pandey_storage2 ]
+}
+
+#Create a storage account in the resource group with different names and locations using count
+resource "azurerm_storage_account" "pandeystorage3" {
+  count                    = length(var.storage_accounts) # Count will create a storage account for each item in the list
+  name                     = var.storage_accounts[count.index]
+  resource_group_name      = "pandey-rg2611"
+  location                 = "eastus"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+variable "storage_accounts" {
+  type = list(string)
+  default = [
+    "pandeystorage00",
+    "pandeystorage01",
+    "pandeystorage02"
+  ]
+}
+
+#Create a storage account in the resource group with for_each using map
+resource "azurerm_storage_account" "for_each_storage" {
+  for_each                 = var.storage_account_map
+  name                     = each.value
+  resource_group_name      = azurerm_resource_group.pandey_rg2.name
+  location                 = azurerm_resource_group.pandey_rg2.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+variable "storage_account_map" {
+  default = {
+    acc01 = "mystorageacc04"
+    acc02 = "mystorageacc05"
+  }
+}
+
+
+ 
+
+
+
+
     
 
 
