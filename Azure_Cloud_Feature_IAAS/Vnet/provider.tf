@@ -23,14 +23,24 @@ provider "azurerm" {
   # Configuration options
 
   features {}
-  subscription_id = "31a9bebe-109c-426e-9c37-09af652b7cba" 
+  # subscription_id = "31a9bebe-109c-426e-9c37-09af652b7cba" 
+  subscription_id = "6b6841bf-0578-47fa-9c22-85d13fdbef13"
 
 }
-# Create a resource group in Azure hardcoded to "central india"
+# Create a resource group in Azure hardcoded to "East US"
 # Ensure the location matches your Azure region preference
 
-resource "azurerm_resource_group" "rgindia"{
-    name ="rgindia"
-    location = "central india"
-
+resource "azurerm_resource_group" "rgvnet" {
+  name     = "vnet_rg1"
+  location = "East US"
 }
+
+resource "azurerm_virtual_network" "vnet1" {
+  name                = "vnetname1"
+  location            = azurerm_resource_group.rgvnet.location
+  resource_group_name = azurerm_resource_group.rgvnet.name
+  address_space       = ["10.0.0.0/16"]
+  dns_servers         = ["10.0.0.4", "10.0.0.5"]
+  }
+
+  
