@@ -1,4 +1,9 @@
+˳$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
+AZURE CLOUD
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#########################################################################################################################
 Status:
 Owner: Sudhanshu pandey
 ##########################################################################################################################
@@ -7,16 +12,14 @@ Owner: Sudhanshu pandey
 -----------------------------------------------------------------------------------------------------------------------
 Provision a resource group, virtual network, subnet, network security group, and a single Linux or Windows VM.
 Configure boot diagnostics using a storage account.
-Optionally, generate an SSH key pair or set up a Windows admin password automatically.
-Include the external valumn , drive in linux and windows VM. Where we need to install NGINX and IIS web server and move 
-the logs.
+Optionally, generate an SSH key pair or set up a Windows admin password automaticall
 #######################################################################################################################
 
 Status:
 Owner: 
 #######################################################################################################################
 -----------------------------------------------------------------------------------------------------------------------
-2. Basic Web Site Deployment -Azure Cloud
+1. Basic Web Site Deployment -Azure Cloud
 -----------------------------------------------------------------------------------------------------------------------
 
 Provision an Azure IAAS & PASS to host a basic web site (Monolathic app & wensite) and connect it to an Azure Database for MsSQL.
@@ -65,7 +68,7 @@ Status:
 Owner: Subinoy Debnath
 #######################################################################################################################
 -----------------------------------------------------------------------------------------------------------------------
-6. Secure Bastion Host Solution
+5. Secure Bastion Host Solution
 -----------------------------------------------------------------------------------------------------------------------
 
 Deploy a jumpbox (bastion host) VM, restrict management access to internal VMs via the jumpbox, 
@@ -83,3 +86,100 @@ Attach an Azure Load Balancer in front of the scale set for high availability an
 
 
 ############################################################################################################################
+
+#############################################################################################################################
+Name: Terraform Enterprise Azure Reference Architecture Implementation
+Owner:
+#############################################################################################################################
+
+Deploy HashiCorp Terraform Enterprise on Azure with standalone or active/active mode.
+
+Configure multi-region deployments for disaster recovery with warm/cold standby models.
+
+Manage remote state, node scaling, and high availability infrastructure.
+
+
+#############################################################################################################################
+Name: Virtual Machine Scale Set with VPN and Network Security Groups
+Owner:
+#############################################################################################################################
+
+Automate deployment of VM Scale Sets combined with VPN Gateways for secure connectivity.
+
+Segment workloads using NSGs and implement monitoring and autoscaling policies
+
+
+
+#############################################################################################################################
+Name: Complete Web App Infrastructure with Azure App Service and Azure Database for MySQL
+Owner:
+#############################################################################################################################
+
+Use Terraform to deploy App Services, Azure Database for MySQL with private endpoints, and configure networking and security.
+
+
+Include monitoring through Azure Monitor and Application Insights
+
+
+
+#############################################################################################################################
+Name: Multi-Region Geo-Redundancy with Azure Traffic Manager and Terraform
+Owner:
+#############################################################################################################################
+
+Deploy duplicate infrastructure in multiple Azure regions and configure Traffic Manager for traffic routing and failover.
+
+Automate replication of resources and backup policies
+
+#############################################################################################################################
+Name: BAzure Firewall with Custom Application and Network Rules Plus Logging
+Owner:
+#############################################################################################################################
+
+Use Terraform to deploy Azure Firewall with fine-grained rules.
+
+Integrate with Log Analytics and Security Center for real-time monitoring
+
+#############################################################################################################################
+Name: Private Endpoint and VNet Peering Automation for Secure PaaS Access
+Owner:
+#############################################################################################################################
+
+Configure private endpoints to securely connect App Services or databases inside VNets.
+Use VNet peering to integrate multiple VNets across subscriptions or regions.
+
+#############################################################################################################################
+Name: Terraform-managed Azure Key Vault with Managed Identity Access
+Owner:
+#############################################################################################################################
+
+Automate Key Vault provisioning, assign access to managed identities for VMs or App Services.
+Secure secret injection without manual handling
+
+#############################################################################################################################
+Name: Multi-Environment Infrastructure Deployment with Feature-Branch Automation
+Owner:
+#############################################################################################################################
+
+Build a Terraform setup that automatically provisions/destroys isolated Azure environments for each feature branch via Azure DevOps pipelines.
+
+Use custom Terraform modules to manage AKS clusters, service principals, Key Vault, and secrets per environment.
+
+Implements a fully automated CI/CD infrastructure lifecycle.
+
+
+#############################################################################################################################
+Name: Serverless Event-driven Architecture with Azure Functions and Event Grid
+Owner:
+#############################################################################################################################
+
+Deploy Azure Functions with triggers from Event Grid, Storage, or HTTP via Terraform.
+Manage integration and scaling automatically
+
+
+
+
+
+
+
+
