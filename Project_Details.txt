@@ -133,7 +133,7 @@ Deploy duplicate infrastructure in multiple Azure regions and configure Traffic 
 Automate replication of resources and backup policies
 
 #############################################################################################################################
-Name: BAzure Firewall with Custom Application and Network Rules Plus Logging
+Name: Azure Firewall with Custom Application and Network Rules Plus Logging
 Owner:
 #############################################################################################################################
 
