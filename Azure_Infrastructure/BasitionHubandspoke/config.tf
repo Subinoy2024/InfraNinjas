@@ -1,10 +1,10 @@
 module "rg_group"{
-    source="../../../Re-Usable_Azure_InfraModules/Azure_Resource_Group"
+    source="../../Re-Usable_Azure_InfraModules/Azure_Resource_Group"
     name="Ind_01_RG"
     location="central india"
 }
 module "vnet"{
-source= "../../../Re-Usable_Azure_InfraModules/Azure_Hub&Spoke"
+source= "../../Re-Usable_Azure_InfraModules/Azure_Hub&Spoke"
 depends_on = [ module.rg_group ]
 vnet01 = {
   v01={
