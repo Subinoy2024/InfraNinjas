@@ -12,7 +12,7 @@ Owner: Sudhanshu pandey
 -----------------------------------------------------------------------------------------------------------------------
 Provision a resource group, virtual network, subnet, network security group, and a single Linux or Windows VM.
 Configure boot diagnostics using a storage account.
-Optionally, generate an SSH key pair or set up a Windows admin password automaticall
+Optionally, generate an SSH key pair or set up a Windows admin password automatically.
 #######################################################################################################################
 
 Status:
