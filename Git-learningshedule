@@ -1,0 +1,135 @@
+✅ Git Learning Schedule (7 Days Plan)
+
+Goal: Learn Git step-by-step for real-world DevOps usage and interview preparation
+**********************************************************************************
+
+
+---
+
+# Day 1.  – Git Basics & Setup
+
+What is Git?
+
+Git vs GitHub
+
+Install Git and create a GitHub account
+
+Configure Git (git config --global)
+
+Create a local repo (git init)
+
+Stage → Commit process
+
+Commands: git add, git commit -m
+
+Check status: git status, git log
+🔁 Practice: Create a folder, add files, track and commit changes
+
+
+
+
+---
+
+# Day 2 – Tracking File Changes
+
+See file changes using git diff
+
+Delete and rename files
+
+Commands: git rm, git mv
+
+
+Show file history: git show
+
+Restore files: git checkout filename
+
+Use .gitignore to skip files
+🔁 Practice: Try adding/removing files and ignore some files
+
+
+
+---
+
+# Day 3 – Branching
+
+What is a branch?
+
+Create, switch, and delete branches
+
+Commands: git branch, git switch, git checkout
+
+
+Merging branches
+
+Understand and resolve merge conflicts
+🔁 Practice: Create a branch, make changes, merge it into main branch
+
+
+
+---
+
+# Day 4 – Remote Repositories & GitHub
+
+What is a remote repo?
+
+Create a GitHub repo
+
+Link local repo to GitHub
+
+Commands: git remote add origin, git push -u origin main
+
+
+Clone a repo: git clone
+
+Pull updates: git pull
+🔁 Practice: Push local code to GitHub and pull it on another folder/machine
+
+
+
+---
+
+# Day 5 – Stashing, Tagging, Reset & Revert
+
+Save temporary work: git stash, git stash apply
+
+Tag versions: git tag, git show <tag>
+
+Undo changes using:
+
+git reset (soft/hard)
+
+git revert (safe undo)
+🔁 Practice: Make and stash changes, create tags, try revert/reset
+
+
+
+
+---
+
+# Day 6 – Real-World Git Workflow
+
+Git Workflow (Feature, Dev, Main branches)
+
+Fork and Pull Request (PR)
+
+Code collaboration
+
+Solve real merge conflicts
+🔁 Practice: Collaborate with a friend on GitHub using PR
+
+
+
+---
+
+# Day 7 – Advanced Concepts & Interview Prep
+
+Reflog and recovering lost commits
+
+Cherry-pick
+
+Squash commits
+
+Git best practices
+
+Important Git interview questions
+🔁 Practice: Try reflog, cherry-pick, and revise all commands
