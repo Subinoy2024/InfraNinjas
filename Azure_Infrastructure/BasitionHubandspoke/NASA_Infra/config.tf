@@ -5,6 +5,40 @@ module "nasa_resource_group" {
   location            = "Central India"
 }
 
+module "keyvaultName12" {
+  source              = "../Modules/Azure_KeyVault"
+  depends_on          = [module.nasa_resource_group]
+  resource_group_name = "Nasa_RG_01"
+  keyvaultName1       = "NasaKeyStorage"
+  location            = "central india"
+}
+
+module "loginaccess" {
+  source              = "../Modules/Azure_Key_Secret"
+  depends_on          = [module.nasa_resource_group,module.keyvaultName12]
+  keyvaultName1       = "NasaKeyStorage"
+  resource_group_name = "Nasa_RG_01"
+  secrate = {
+    login = {
+      name  = "vmlogin"
+      value = "vmadmin"
+    }
+    login2 = {
+      name  = "vmpassword"
+      value = "Ipmith@12345"
+    }
+    login3 = {
+      name  = "SQLlogin"
+      value = "sqladmin"
+    }
+    login4 = {
+      name  = "sqlpassword"
+      value = "Ipmith@12345"
+    }
+  }
+
+}
+
 
 module "nashubspoke" {
   source     = "../Modules/Azure_Hub&Spoke_Network"
@@ -13,51 +47,119 @@ module "nashubspoke" {
     v01 = {
       name          = "hub_vnet01"
       location      = "central india"
-      rg_group      = "NaSaRg001"
+      resource_group_name   = "Nasa_RG_01"
       address_space = ["192.168.2.0/26"]
     }
     v012 = {
       name          = "spoke_vnet012"
       location      = "central india"
-      rg_group      = "NaSaRg001"
+      resource_group_name      = "Nasa_RG_01"
       address_space = ["192.168.50.0/27"]
     }
     V03 = {
       name          = "spoke_vnet02"
       location      = "central india"
-      rg_group      = "NaSaRg001"
-      address_space = ["192.168.0.0/28"]
+      resource_group_name      = "Nasa_RG_01"
+      address_space = ["10.0.20.0/26"]
     }
   }
 
 }
 
-module "subnet"{
-  source = "../Modules/Azure_Subnet"
-  depends_on = [ module.nashubspoke ]
+module "subnet" {
+  source     = "../Modules/Azure_Subnet"
+  depends_on = [module.nasa_resource_group, module.nashubspoke]
   subnet = {
-    sbn01={
-      name="nsub01"
-      resource_group_name="NaSaRg001"
-      virtual_network_name="hub_vnet01"
-      address_space=["192.168.2.0/27"]
+    sbn01 = {
+      name                 = "nsub01"
+      resource_group_name  = "Nasa_RG_01"
+      virtual_network_name = "hub_vnet01"
+      address_prefixes     = ["192.168.2.0/27"]
 
     }
-    sbn02={
-      name="nsub02"
-      resource_group_name="NaSaRg002"
-      virtual_network_name="spoke_vnet012"
-      address_space=["192.168.50.0/28"]
+    sbn02 = {
+      name                 = "nsub02"
+      resource_group_name  = "Nasa_RG_01"
+      virtual_network_name = "spoke_vnet012"
+      address_prefixes     = ["192.168.50.0/28"]
 
     }
-    sbn03={
-      name="nsub03"
-      resource_group_name="NaSaRg003"
-      virtual_network_name="spoke_vnet02"
-      address_space=["192.168.0.0/28	"]
+    sbn03 = {
+      name                 = "nsub03"
+      resource_group_name  = "Nasa_RG_01"
+      virtual_network_name = "spoke_vnet02"
+      address_prefixes     = ["10.0.20.0/26"]
 
     }
   }
 }
+module "internet01" {
+  source     = "../Modules/Azure_Public_IP"
+  depends_on = [module.nasa_resource_group, module.nashubspoke,module.subnet]
+  internet = {
+    int01 = {
+      name             = "int_Nasa_01"
+      resource_Gname   = "Nasa_RG_01"
+      location         = "central india"
+      allocationmethod = "Static"
+    }
+    int02 = {
+      name             = "int_Nasa_02"
+      resource_Gname   = "Nasa_RG_01"
+      location         = "central india"
+      allocationmethod = "Static"
+    }
+    int03 = {
+      name             = "int_Nasa_03"
+      resource_Gname   = "Nasa_RG_01"
+      location         = "central india"
+      allocationmethod = "Static"
+    }
+
+  }
+
+}
+
+module "fireallConfig" {
+  source      = "../Modules/Azure_Firewall"
+  depends_on  = [module.nasa_resource_group, module.nashubspoke, module.subnet, module.internet01]
+  name        = "nsub01"
+  vnetwork    = "hub_vnet01"
+  rggroupname = "Nasa_RG_01"
+  pipname     = "int_Nasa_01"
+  firconfig = {
+    nasa_fire_01 = {
+      name                = "NasaFirewall01"
+      location            = "central india"
+      resource_group_name = "Nasa_RG_01"
+      sku_name            = "AZFW_VNet"
+      sku_tier            = "Standard"
+    }
+  }
+
+
+
+}
+
+module "bastion1" {
+  source         = "../Modules/Azure_Bastion"
+  depends_on     = [module.nasa_resource_group, module.nashubspoke, module.subnet, module.internet01, module.fireallConfig]
+  name           = "nsub01"
+  vnetwork       = "hub_vnet01"
+  resource_Gname = "Nasa_RG_01"
+  pipname        = "int_Nasa_01"
+  bastion = {
+    bas1 = {
+      name           = "BastionUSA01"
+      location       = "central india"
+      resource_Gname = "Nasa_RG_01"
+    }
+  }
+}
+
+
+
+
+
 
 
