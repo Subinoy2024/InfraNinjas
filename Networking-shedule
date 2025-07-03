@@ -1,0 +1,151 @@
+✅ DevOps Networking Learning Roadmap (7 Days Plan)
+
+************************************************************
+
+---
+
+Day 1 – Networking Basics (Very Important)
+-------------------------------------------
+
+What is a network?
+
+IP address, Private vs Public IP
+
+Subnetting basic idea
+
+CIDR Notation (e.g. /24)
+
+OSI Model (just overview: 7 layers)
+
+What is DNS, DHCP?
+
+
+🔁 Practice: Check your IP with ipconfig (Windows) or ip a (Linux)
+
+
+---
+
+Day 2 – Key Terms for DevOps
+------------------------------
+
+What is NAT, SNAT, DNAT?
+
+What is Gateway?
+
+What is Load Balancer?
+
+What is Firewall?
+
+Ports and Protocols (TCP/UDP, 80, 443, 22, etc.)
+
+Ingress vs Egress traffic
+
+
+🔁 Practice: Use netstat -an and ss -tuln on Linux
+
+
+---
+
+Day 3 – Networking in Cloud (Azure Focused)
+-------------------------------------------
+
+Azure VNet, Subnets
+
+NSG (Network Security Group)
+
+Public IP, Private IP
+
+Azure DNS and Custom DNS
+
+Azure Load Balancer and Application Gateway
+
+VNet Peering
+
+Hub and Spoke model
+
+
+🔁 Practice: Make a VNet with 2 subnets and ping between VMs
+
+
+---
+
+Day 4 – Linux Networking Commands (Practical)
+----------------------------------------------
+
+ip, ifconfig, ping, traceroute
+
+curl, wget
+
+netstat, ss, nmap
+
+iptables (basic idea)
+
+dig, nslookup
+
+
+🔁 Practice: Ping external IPs, use curl to test HTTP
+
+
+---
+
+Day 5 – Docker & Networking
+----------------------------
+
+Docker bridge network
+
+Host network, None network
+
+Docker port mapping (-p 8080:80)
+
+Docker DNS
+
+Communication between containers
+
+
+🔁 Practice: Run 2 containers and connect them via bridge network
+
+
+---
+
+Day 6 – Terraform, Kubernetes & Networking
+-------------------------------------------
+
+Create Azure Networking with Terraform
+
+Define VNet, Subnet, NSG using Terraform
+
+Kubernetes networking overview (Pod IP, Service IP, NodePort, ClusterIP)
+
+Ingress Controller in K8s
+
+Network Policies
+
+
+🔁 Practice: Create VNet + NSG in Terraform (I'll give you the code if needed)
+
+
+---
+
+Day 7 – Real-World Scenarios + Interview Questions
+--------------------------------------------------
+
+Difference between NSG & Firewall
+
+Why Load Balancer is needed?
+
+How to restrict VM to allow traffic only on port 22?
+
+How traffic flows in Hub & Spoke model?
+
+Common Interview Qs like:
+
+What is VNet Peering?
+
+What is the default port for SSH, HTTPS, etc.?
+
+
+
+🔁 Practice: Solve 5-10 networking questions in your notes
+
+
+---
