@@ -1,0 +1,1118 @@
+✅ Terraform Interview Questions & Answers – Zero + Advanced(1 to 150)
+
+
+---
+
+Basic Level (1–30)
+********************
+
+---
+
+1. What is Terraform?
+Terraform is an open-source Infrastructure as Code (IaC) tool by HashiCorp that lets you create and manage cloud resources like VMs, networks, and storage using simple configuration files.
+
+
+---
+
+2. Who developed Terraform?
+Terraform is developed by HashiCorp, which also created Vault, Consul, and Nomad.
+
+
+---
+
+3. What is Infrastructure as Code (IaC)?
+IaC means managing and provisioning infrastructure through code instead of manual work — making it faster, consistent, and version-controlled.
+
+
+---
+
+4. What are providers in Terraform?
+Providers are plugins that let Terraform interact with cloud platforms like Azure (azurerm), AWS (aws), or GCP (google).
+
+
+---
+
+5. What is a resource in Terraform?
+A resource is the most basic block in Terraform. It represents any cloud object you want to create — like a VM, Storage Account, or VNet.
+
+
+---
+
+6. What is a data block?
+A data block is used to read existing resources from cloud (read-only), not to create them. For example, fetching a Key Vault secret.
+
+
+---
+
+7. What is a module in Terraform?
+A module is a reusable set of Terraform files (main.tf, variables.tf, outputs.tf) that can be called from another config.
+
+
+---
+
+8. What is a variable?
+Variables make the code dynamic. You can define them once and reuse with different values — like location, vm_size, etc.
+
+
+---
+
+9. What is an output?
+Output displays values after apply — like VM IP, hostname, etc. It helps you get useful info from your deployment.
+
+
+---
+
+10. What is the Terraform state file?
+terraform.tfstate keeps a record of all infrastructure Terraform has created — used to track changes and avoid duplication.
+
+
+---
+
+11. What is a backend?
+Backend defines where and how Terraform stores the state file — locally or remotely (like Azure blob, S3).
+
+
+---
+
+12. Why use a remote backend?
+To store state file securely in cloud, enable team collaboration, and support state locking (to avoid conflicts).
+
+
+---
+
+13. What does terraform init do?
+Initializes your working directory, downloads the required provider plugins, and sets up the backend.
+
+
+---
+
+14. What does terraform plan do?
+It shows you a preview of what Terraform will do before actually making any changes.
+
+
+---
+
+15. What does terraform apply do?
+It creates, updates, or deletes infrastructure based on your .tf files and state.
+
+
+---
+
+16. What does terraform destroy do?
+It destroys (deletes) all resources created by Terraform, as per the state file.
+
+
+---
+
+17. What does terraform fmt do?
+It formats your .tf code files to follow standard style — improving readability and consistency.
+
+
+---
+
+18. What does terraform validate do?
+It checks your Terraform code for syntax or configuration errors — before planning or applying.
+
+
+---
+
+19. What is interpolation in Terraform?
+It’s the syntax (${}) used to insert variable or resource values inside strings. Example: name = "${var.name}-vm".
+
+
+---
+
+20. What is a .tfvars file?
+It holds variable values separately. You can apply them using:
+terraform apply -var-file="dev.tfvars"
+
+
+---
+
+21. What is count in Terraform?
+count lets you create multiple copies of a resource using index-based logic — good for simple repetition.
+
+
+---
+
+22. What is for_each in Terraform?
+for_each lets you loop over maps or sets of values to create uniquely named resources — better for complex cases.
+
+
+---
+
+23. Difference between count and for_each?
+
+Use count when working with lists.
+
+Use for_each when you need key-value control (maps or sets).
+
+
+
+---
+
+24. What is depends_on in Terraform?
+Used to create manual dependency between resources — making sure one resource waits for another to complete.
+
+
+---
+
+25. What is the lifecycle block in Terraform?
+Controls how Terraform handles resource updates or deletes. Example: prevent_destroy = true.
+
+
+---
+
+26. What is prevent_destroy?
+A setting inside lifecycle block that blocks Terraform from accidentally deleting a resource.
+
+
+---
+
+27. What are locals in Terraform?
+Local values are like internal variables that simplify expressions and calculations inside a module.
+
+
+---
+
+28. What is an output block used for?
+To show useful information (like public IP) after applying Terraform — you can use terraform output to fetch it later.
+
+
+---
+
+29. What is .terraform.lock.hcl file?
+It locks provider versions to ensure consistent deployments for all team members.
+
+
+---
+
+30. What is the .terraform/ folder?
+A hidden directory where Terraform keeps plugins, downloaded modules, and state cache info.
+
+
+
+Intermediate(module,loops)
+***************************
+
+31. What is null_resource in Terraform?
+It’s a dummy resource used to run local or remote scripts (no actual infra is created).
+
+
+---
+
+32. What is local-exec provisioner?
+It runs a command/script on your local machine after a resource is created.
+
+provisioner "local-exec" {
+  command = "echo Done"
+}
+
+
+---
+
+33. What is remote-exec provisioner?
+It runs a script inside a VM after creation using SSH/WinRM.
+
+
+---
+
+34. What is terraform taint?
+It marks a resource to be recreated on the next apply — useful for fixing corrupt infra.
+
+
+---
+
+35. What is drift in Terraform?
+It means the real cloud resource is changed manually, and is now different from the state file.
+
+
+---
+
+36. What is terraform import?
+Used to bring existing cloud resources under Terraform control — adds them to state file.
+
+terraform import azurerm_resource_group.rg myResourceGroup
+
+
+---
+
+37. What does terraform state command do?
+Used to manipulate or inspect the state file, like list, remove, or show resources.
+
+
+---
+
+38. What is a dynamic block in Terraform?
+Used when you want to generate repeated nested blocks dynamically based on data.
+
+
+---
+
+39. What is templatefile() function?
+Loads an external .sh or .conf file and replaces variables inside it.
+
+custom_data = templatefile("install.sh", { name = "nginx" })
+
+
+---
+
+40. What is the use of file() function?
+Simply reads content of a file — no variable replacement.
+
+
+---
+
+41. How to attach a disk to VM in Terraform?
+Use 3 resources:
+
+azurerm_managed_disk
+
+azurerm_virtual_machine_data_disk_attachment
+
+Format via script in custom_data
+
+
+
+---
+
+42. How to use custom_data in VM creation?
+Pass a base64 encoded script that runs when the VM boots.
+
+custom_data = base64encode(file("nginx.sh"))
+
+
+---
+
+43. What is a sensitive variable in Terraform?
+Hides secret values (like passwords) from CLI output and state file prints.
+
+variable "password" {
+  type      = string
+  sensitive = true
+}
+
+
+---
+
+44. What is terraform output command?
+It shows values from the output block — helpful after deployment.
+
+
+---
+
+45. How do you reuse code in Terraform?
+Use modules with variables. Call them in main .tf file using the module block.
+
+
+---
+
+46. How do you pass variables to modules?
+Using key-value inside the module block.
+
+module "vm" {
+  source = "./vm"
+  vm_name = "dev-vm"
+}
+
+
+---
+
+47. What is ignore_changes in Terraform?
+Tells Terraform to not update specific fields, even if they change outside.
+
+lifecycle {
+  ignore_changes = [ tags ]
+}
+
+
+---
+
+48. How to create Key Vault + Secret in Terraform?
+Use two resources:
+
+azurerm_key_vault
+
+azurerm_key_vault_secret
+
+
+
+---
+
+49. How to read secret from Key Vault in Terraform?
+Use a data block:
+
+data "azurerm_key_vault_secret" "mysecret" {
+  name         = "password"
+  key_vault_id = azurerm_key_vault.kv.id
+}
+
+
+---
+
+50. What is Terraform Registry?
+A central hub for reusable modules and providers — both public and private.
+
+
+---
+
+51. What is a workspace in Terraform?
+A separate copy of state file — used to manage different environments (dev, staging, prod).
+
+
+---
+
+52. How to create a new workspace?
+terraform workspace new dev
+
+
+---
+
+53. How to switch workspaces?
+terraform workspace select dev
+
+
+---
+
+54. How to list all workspaces?
+terraform workspace list
+
+
+---
+
+55. What is .terraform.lock.hcl used for?
+Locks the versions of used providers so everyone in the team gets the same version.
+
+
+---
+
+56. How to get public IP of VM after apply?
+Use an output block:
+
+output "vm_ip" {
+  value = azurerm_public_ip.vm.ip_address
+}
+
+
+---
+
+57. How to protect production resource from accidental deletion?
+Use prevent_destroy = true in lifecycle block.
+
+
+---
+
+58. How to automate Terraform using GitHub Actions?
+Create .github/workflows/main.yml
+Run init, plan, and apply steps inside it.
+
+
+---
+
+59. What is terraform refresh?
+Updates the state file with actual cloud values (useful if someone changed resource manually).
+
+
+---
+
+60. What is terraform show?
+Displays the state file in human-readable format.
+
+
+---
+
+61. What is the use of terraform graph?
+Generates a visual dependency graph of resources.
+
+
+---
+
+62. What is Terraform Cloud?
+HashiCorp’s cloud platform for running Terraform with teams, version control, and approvals.
+
+
+---
+
+63. What is Sentinel in Terraform Cloud?
+Policy-as-code feature to enforce rules (like no open ports, region restrictions, etc.)
+
+
+---
+
+64. What is Terragrunt?
+A wrapper over Terraform to simplify usage across multiple environments with less duplication.
+
+
+---
+
+65. How do you test Terraform code?
+Use:
+
+terraform validate
+
+tflint (linting)
+
+checkov or tfsec for security scanning
+
+
+
+---
+
+66. How to handle secrets securely in Terraform?
+Avoid hardcoding — use Key Vault or environment variables.
+
+
+---
+
+67. How do you connect 2 VMs privately in Azure using Terraform?
+
+Keep them in same VNet
+
+Use private IPs
+
+Configure NSGs properly (allow port 22/80 inside)
+
+
+
+---
+
+68. What is Site-to-Site VPN in Terraform?
+Use:
+
+azurerm_virtual_network_gateway
+
+azurerm_local_network_gateway
+
+azurerm_connection
+
+
+
+---
+
+69. What is a SAS Token in Azure?
+It gives temporary access to Azure Storage — used in remote backend config.
+
+
+---
+Real-world/project-based
+**************************
+
+
+70. What is the default timeout of terraform apply?
+It depends on resource type, but you can increase it using timeouts block in resource.
+
+71. How to deploy NGINX on Azure VM using Terraform?
+→ Create Linux VM + use custom_data = base64encode(file("nginx.sh")) to install NGINX during boot.
+
+
+---
+
+72. What is custom_data in Terraform?
+→ It lets you pass a script (like shell script) that runs when VM starts.
+
+
+---
+
+73. How do you base64 encode a script in Terraform?
+→ Use: base64encode(file("script.sh"))
+
+
+---
+
+74. How to store VM logs to an external disk?
+→ Attach a data disk + mount it in script using /etc/fstab + redirect logs to that path.
+
+
+---
+
+75. How do you attach and mount a disk in Terraform?
+→ Use:
+
+1. azurerm_managed_disk
+
+
+2. azurerm_virtual_machine_data_disk_attachment
+
+
+3. Mount inside VM with shell script.
+
+
+
+
+---
+
+76. How to handle username/password securely in Terraform?
+→ Use Azure Key Vault + data "azurerm_key_vault_secret" block.
+
+
+---
+
+77. How to connect Terraform VM via SSH from terminal?
+→ Get public IP using terraform output, then use:
+ssh -i mykey.pem azureuser@<public-ip>
+
+
+---
+
+78. How to provision a 3-tier architecture in Azure using Terraform?
+→ Use:
+
+Resource group
+
+VNet + 3 Subnets (web/app/db)
+
+NSGs
+
+Linux VMs in each layer
+
+MySQL/Azure DB
+
+
+
+---
+
+79. How to define Azure remote backend in Terraform?
+
+backend "azurerm" {
+  storage_account_name = "yourstorage"
+  container_name       = "tfstate"
+  key                  = "terraform.tfstate"
+}
+
+
+---
+
+80. What is the use of key in backend block?
+→ It’s the filename for state inside the blob container.
+
+
+---
+
+81. How to push logs from VM to external storage in Terraform?
+→ Mount disk + modify log config (like nginx.conf or IIS config) to point to external drive path.
+
+
+---
+
+82. What if Terraform loses its state file?
+→ It forgets what it created and may try to recreate everything. Backup is critical.
+
+
+---
+
+83. What is terraform refresh used for?
+→ Updates the state file with real cloud status — good for fixing manual drift.
+
+
+---
+
+84. What if someone manually changes a resource?
+→ Drift happens. Run terraform plan or terraform refresh to detect mismatch.
+
+
+---
+
+85. How to organize Terraform project folder structure?
+
+/modules/
+  vm/
+  vnet/
+  keyvault/
+main.tf
+variables.tf
+outputs.tf
+terraform.tfvars
+
+
+---
+
+86. What is the recommended way to manage secrets in Terraform?
+→ Use Azure Key Vault and never hardcode secrets in .tf or .tfvars.
+
+
+---
+
+87. What happens if multiple people apply Terraform at same time?
+→ If using remote backend (with locking), second person will wait.
+Local backend = race condition (bad).
+
+
+---
+
+88. What is locking in Terraform backend?
+→ Prevents multiple applies at same time. Azure and S3 support locking.
+
+
+---
+
+89. What is terraform state list?
+→ Lists all resources currently managed in state file.
+
+
+---
+
+90. What is terraform state rm?
+→ Removes a resource from state file (does not delete infra) — useful for manual fix.
+
+
+---
+
+91. How to use terraform output in shell scripts?
+
+VM_IP=$(terraform output -raw public_ip)
+
+
+---
+
+92. How to skip resource creation based on condition in Terraform?
+→ Use count = var.enabled ? 1 : 0
+
+
+---
+
+93. Can you have multiple provider versions in same project?
+→ Yes, using aliases:
+
+provider "azurerm" {
+  alias = "west"
+  features {}
+  location = "West US"
+}
+
+
+---
+
+94. How to loop over a list and create NSGs in Terraform?
+
+resource "azurerm_network_security_group" "nsg" {
+  for_each = toset(["web", "app", "db"])
+  name     = "${each.key}-nsg"
+}
+
+
+---
+
+95. How to create multiple subnets using list?
+
+resource "azurerm_subnet" "subnet" {
+  for_each = var.subnet_map
+  name     = each.key
+  address_prefixes = [each.value]
+}
+
+
+---
+
+96. How to reuse a VM module with different names?
+→ Use for_each + module block with map input:
+
+module "vms" {
+  for_each = var.vm_map
+  source = "./modules/vm"
+  vm_name = each.key
+}
+
+
+---
+
+97. How to deploy same infra in multiple regions?
+→ Use module + provider alias for each region. Then loop with for_each.
+
+
+---
+
+98. How to apply only one module in Terraform?
+→ Use -target flag:
+terraform apply -target=module.vnet
+
+
+---
+
+99. How to debug Terraform issues?
+→ Use TF_LOG=DEBUG in CLI for detailed output.
+
+
+---
+
+100. What is Terragrunt and why use it?
+→ Wrapper tool on Terraform to handle multi-env, DRY code, shared variables, and reusability.
+
+
+---
+
+101. How do you keep your Terraform code secure?
+✅ Don’t hardcode secrets
+✅ Use Key Vault or env variables
+✅ Don’t commit .tfstate to Git
+✅ Use remote backends
+✅ Restrict access to state storage
+
+
+Advanced/Production use-cases
+*******************************
+
+102. How do you manage secrets across multiple environments in Terraform?
+→ Use environment-specific Key Vaults + Terraform workspaces or separate .tfvars.
+
+
+---
+
+103. How do you ensure only specific users can apply Terraform?
+→ Use RBAC on backend storage or CI/CD approval pipelines.
+
+
+---
+
+104. How do you test a Terraform module?
+→ Use terraform validate, tflint, Terratest (Go), or kitchen-terraform.
+
+
+---
+
+105. What is the difference between terraform init and terraform get?
+→
+
+init: downloads provider & backend plugins
+
+get: updates local modules (used when module source changes)
+
+
+
+---
+
+106. How to create a versioned module?
+→ Use Git tags or versions in Terraform Registry, like:
+source = "git::https://github.com/org/module.git?ref=v1.0.0"
+
+
+---
+
+107. Can Terraform deploy multiple resource groups in a loop?
+→ Yes, using for_each on a map of names/locations.
+
+
+---
+
+108. What if you run terraform apply twice without changing code?
+→ It will show “no changes” — Terraform is idempotent.
+
+
+---
+
+109. How to avoid accidental apply in prod?
+→ Add condition or flag like var.is_prod = false and skip sensitive resources if false.
+
+
+---
+
+110. How do you rename a Terraform-managed resource?
+→ You need to:
+
+1. terraform state mv old.name new.name
+
+
+2. Then change code.
+
+
+
+
+---
+
+111. How do you upgrade provider version safely?
+→ Update version constraint in required_providers block and run terraform init -upgrade.
+
+
+---
+
+112. How to detect changes in remote infra made outside Terraform?
+→ Use terraform plan or terraform refresh to detect drift.
+
+
+---
+
+113. How to make a resource optional?
+→ Use count = var.enable_resource ? 1 : 0
+
+
+---
+
+114. Can you create Azure AD users/groups via Terraform?
+→ Yes, using azuread provider.
+Example: azuread_user, azuread_group.
+
+
+---
+
+115. What’s the purpose of the provider block in module?
+→ To pass alias or custom provider setting to a module.
+
+
+---
+
+116. Can you write conditionals in Terraform?
+→ Yes, using ternary syntax:
+var.env == "prod" ? "Standard_DS2_v2" : "Standard_B1s"
+
+
+---
+
+117. How do you prevent one module from running unless another completes?
+→ Use depends_on inside module block.
+
+
+---
+
+118. How to write Terraform code that deploys both Linux & Windows VM conditionally?
+→ Use variable like var.vm_type = "linux" or "windows" and use count with conditional logic.
+
+
+---
+
+119. What is a “tainted” resource?
+→ A resource marked for forced recreation in next apply due to corruption or manual taint.
+
+
+---
+
+120. What is the fastest way to test changes without deploying?
+→ Use terraform plan and validate changes without affecting cloud.
+
+
+Senior/Team/CI-CD level
+**************************
+
+121. How do you design a scalable Terraform module for any cloud project?
+→ Keep input variables flexible, use dynamic blocks, add outputs, avoid hardcoding names.
+
+
+---
+
+122. How to split Terraform project across teams?
+→ Split infra into small modules per service/team — use remote state + terraform_remote_state to share outputs.
+
+
+---
+
+123. Can one module access another module’s outputs?
+→ Directly — No. But via terraform_remote_state or by passing outputs manually — Yes.
+
+
+---
+
+124. What is resource targeting? Why is it risky?
+→ terraform apply -target=resource.name runs partial apply.
+Risk: can break dependencies or skip required infra.
+
+
+---
+
+125. How do you roll back a Terraform deployment?
+→ Terraform doesn’t support rollback.
+You must:
+
+Use versioned state
+
+Or manually revert .tf and re-apply
+
+
+
+---
+
+126. Can you use try() function in Terraform?
+→ Yes, it safely handles errors. Example:
+try(var.name, "default-name")
+
+
+---
+
+127. How to write reusable dynamic security rules in Terraform?
+→ Use for_each with dynamic blocks inside NSG or firewall rule.
+
+
+---
+
+128. How do you manage multiple cloud accounts in Terraform?
+→ Use provider alias per account, switch credentials via environment or variable.
+
+
+---
+
+129. How does Terraform handle parallelism?
+→ Terraform applies multiple non-dependent resources in parallel.
+You can limit via:
+terraform apply -parallelism=5
+
+
+---
+
+130. How do you prevent a secret from leaking in logs?
+→ Mark variables as sensitive = true
+→ Avoid printing outputs of sensitive data.
+
+
+---
+
+131. What happens if you remove a resource from .tf file?
+→ terraform plan will show it as “destroy” — and it will be removed on apply.
+
+
+---
+
+132. How do you ensure naming convention in Terraform?
+→ Use locals with logic like:
+
+locals {
+  vm_name = "${var.project}-${var.env}-vm"
+}
+
+
+---
+
+133. How to add retry logic in Terraform?
+→ Terraform doesn’t support retries natively — retry logic must be inside scripts (custom_data).
+
+
+---
+
+134. What are preconditions and postconditions in Terraform?
+→ Used to enforce rules before/after resource creation. (Terraform 1.2+ feature)
+
+
+---
+
+135. What is terraform login?
+→ Used to authenticate Terraform CLI with Terraform Cloud/Enterprise account.
+
+
+---
+
+136. What is resource time_sleep?
+→ It lets you add delay between resources (used in critical ordering).
+
+
+---
+
+137. Can you run Terraform locally but apply on remote cloud?
+→ Yes, Terraform CLI runs locally, providers talk to cloud APIs directly.
+
+
+---
+
+138. What’s the use of depends_on with data block?
+→ Rare case — forces Terraform to read data after a specific resource is created.
+
+
+139. What is the difference between terraform apply -auto-approve and without it?
+→ With -auto-approve: No prompt, applies directly
+→ Without it: Asks for confirmation
+
+
+---
+
+140. Can you use loops inside modules?
+→ No. Looping (count/for_each) must be done outside module block.
+Inside module, use dynamic blocks instead.
+
+
+Master-level/Design-based
+***************************
+
+
+141. How to modularize a full Azure 3-tier app in Terraform?
+→ Create 4 modules:
+
+vnet_module
+
+nsg_module
+
+vm_module
+
+db_module
+Then call all in root main.tf with shared outputs.
+
+
+
+---
+
+142. How to implement RBAC using Terraform in Azure?
+→ Use azurerm_role_assignment to assign roles to users/groups/service principals.
+
+
+---
+
+143. How do you secure remote backend (Azure blob)?
+→
+
+Store access key in Key Vault
+
+Use backend.tf with variables
+
+Optionally use Managed Identity for auth (Azure AD)
+
+
+
+---
+
+144. How do you manage secrets rotation in Terraform?
+→ Don’t hardcode — fetch latest secret value using data block during apply.
+
+
+---
+
+145. How do you do blue/green deployment with Terraform?
+→
+
+Deploy green infra with separate naming
+
+Use output IP or DNS to switch traffic
+
+Destroy old (blue) infra
+
+
+
+---
+
+146. How do you validate infra before actual creation?
+→ Use terraform plan, plus policy checks (like OPA/Sentinel) in pipelines.
+
+
+---
+
+147. How to manage large Terraform state files?
+→
+
+Use backend with state file locking + versioning
+
+Break infra into multiple state files using workspaces/modules
+
+
+
+---
+
+148. Can you create a highly available NGINX app via Terraform?
+→ Yes:
+
+Use VMSS or Load Balancer
+
+Multiple VMs
+
+NSG rules + health probes
+
+
+
+---
+
+149. How to make Terraform run only if GitHub PR is approved?
+→ Setup GitHub Actions with environment protection rules (manual approval step)
+
+
+---
+
+150. What’s the most important best practices for Terraform in teams?
+✅ Use remote backend
+✅ Use locking
+✅ Use terraform fmt, validate, tflint
+✅ Use separate modules
+✅ Never hardcode secrets
+✅ Store .tfstate securely
+✅ Use CI/CD
