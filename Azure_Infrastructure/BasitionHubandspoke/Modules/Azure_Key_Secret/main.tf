@@ -8,4 +8,9 @@ for_each = var.secrate
 name = each.value.name
 value = each.value.value
 key_vault_id = data.azurerm_key_vault.keyvaultinfo.id
+
+ lifecycle {
+    ignore_changes = [value]
+  }
 }
+
