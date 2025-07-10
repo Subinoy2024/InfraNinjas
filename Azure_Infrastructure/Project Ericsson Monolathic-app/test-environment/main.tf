@@ -4,6 +4,13 @@ module "resource_group" {
   resource_group_location = "central india"
 
 }
+
+module "resource_group" {
+  source                  = "../module/1.resource-group"
+  resource_group_name     = "rg-ericsson1"
+  resource_group_location = "central india"
+}
+
 module "storage_account" {
   depends_on               = [module.resource_group]
   source                   = "../module/2.storage-account"
