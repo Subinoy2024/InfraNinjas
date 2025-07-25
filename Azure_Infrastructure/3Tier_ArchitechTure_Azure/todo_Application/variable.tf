@@ -1,12 +1,4 @@
-variable "rg1" {
-  type    = string
-  default = "DebnathCrop2026"
-}
 
-variable "loc1" {
-  type    = string
-  default = "South India"
-}
 
 variable "cidr_range" {
   type    = set(string)
@@ -27,10 +19,29 @@ variable "subname" {
 }
 variable "internet01" {
   type    = string
-  default = "internet"
+  default = "internet1"
 }
-variable "nsg" {
+variable "internet02" {
   type    = string
-  default = "Ind_nsg01"
+  default = "internet2"
 }
+
+variable "nsg2_rules" {
+  type=map(object({
+    name                       = string
+    priority                   = number
+    direction                  = string
+    access                     = string
+    protocol                   = string
+    source_port_range          = string
+    destination_port_range     = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+  }))
+}
+
+variable "frontendendpoint" {
+  type=string
+}
+
 
